@@ -1,0 +1,16 @@
+body {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+}
+
+main {
+  --board-size: calc((100vh / 3) - 32px);
+  display: grid;
+  grid-template-columns: repeat(3, var(--board-size));
+  grid-template-rows: repeat(3, var(--board-size));
+}
+
+main div {
+  border: 1px solid black;
+}
