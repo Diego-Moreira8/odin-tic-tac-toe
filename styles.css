@@ -1,5 +1,5 @@
 :root {
-  --board-margins: 1vh solid gray;
+  --board-margins: 2vh solid gray;
 }
 
 body {
@@ -7,6 +7,7 @@ body {
   justify-content: space-around;
   align-items: center;
   font-family: sans-serif;
+  background-color: bisque;
 }
 
 main {
@@ -22,40 +23,42 @@ main div {
   justify-content: center;
   align-items: center;
   font-size: 20vh;
+  font-weight: bold;
+  color: rgb(89, 89, 89);
 }
 
-#pos0 {
+[data-position="1"] {
   border-right: var(--board-margins);
   border-bottom: var(--board-margins);
 }
 
-#pos1 {
+[data-position="2"] {
   border-bottom: var(--board-margins);
 }
 
-#pos2 {
+[data-position="3"] {
   border-left: var(--board-margins);
   border-bottom: var(--board-margins);
 }
 
-#pos3 {
+[data-position="4"] {
   border-right: var(--board-margins);
 }
 
-#pos5 {
+[data-position="6"] {
   border-left: var(--board-margins);
 }
 
-#pos6 {
+[data-position="7"] {
   border-right: var(--board-margins);
   border-top: var(--board-margins);
 }
 
-#pos7 {
+[data-position="8"] {
   border-top: var(--board-margins);
 }
 
-#pos8 {
+[data-position="9"] {
   border-left: var(--board-margins);
   border-top: var(--board-margins);
 }
