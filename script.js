@@ -2,18 +2,6 @@ const gameBoard = {
   board: ["", "", "", "", "", "", "", "", ""],
 };
 
-const boardPositions = document.querySelectorAll("main div");
-boardPositions.forEach((position) => {
-  position.addEventListener("click", updateBoard);
-});
-
-function updateBoard() {
-  for (let position of boardPositions) {
-    position.innerText =
-      gameBoard.board[parseInt(position.getAttribute("data-position")) - 1];
-  }
-}
-
 const PlayerFactory = (name, mark) => {
   const getName = () => name;
   const getMark = () => mark;
@@ -25,5 +13,38 @@ const PlayerFactory = (name, mark) => {
   return { getName, getMark, play };
 };
 
-const diego = PlayerFactory("Diego", "X");
-const paloma = PlayerFactory("Paloma", "O");
+const playerX = PlayerFactory("Diego", "X");
+const playerO = PlayerFactory("Paloma", "O");
+
+let currentPlayer = playerX;
+
+function insertMark(e) {
+  const clickedPosition = e.target.getAttribute("data-position");
+
+  if (currentPlayer === playerX) {
+    gameBoard.board[clickedPosition] = playerX.getMark();
+    currentPlayer = playerO;
+  } else {
+    gameBoard.board[clickedPosition] = playerO.getMark();
+    currentPlayer = playerX;
+  }
+
+  updateBoard();
+  blockPosition(e.target);
+}
+
+function updateBoard() {
+  for (let position of boardPositions) {
+    position.innerText =
+      gameBoard.board[parseInt(position.getAttribute("data-position"))];
+  }
+}
+
+function blockPosition(position) {
+  position.removeEventListener("click", insertMark);
+}
+
+const boardPositions = document.querySelectorAll("main div");
+boardPositions.forEach((position) => {
+  position.addEventListener("click", insertMark);
+});

@@ -27,38 +27,38 @@ main div {
   color: rgb(89, 89, 89);
 }
 
-[data-position="1"] {
+[data-position="0"] {
   border-right: var(--board-margins);
+  border-bottom: var(--board-margins);
+}
+
+[data-position="1"] {
   border-bottom: var(--board-margins);
 }
 
 [data-position="2"] {
+  border-left: var(--board-margins);
   border-bottom: var(--board-margins);
 }
 
 [data-position="3"] {
-  border-left: var(--board-margins);
-  border-bottom: var(--board-margins);
+  border-right: var(--board-margins);
 }
 
-[data-position="4"] {
-  border-right: var(--board-margins);
+[data-position="5"] {
+  border-left: var(--board-margins);
 }
 
 [data-position="6"] {
-  border-left: var(--board-margins);
+  border-right: var(--board-margins);
+  border-top: var(--board-margins);
 }
 
 [data-position="7"] {
-  border-right: var(--board-margins);
   border-top: var(--board-margins);
 }
 
 [data-position="8"] {
-  border-top: var(--board-margins);
-}
-
-[data-position="9"] {
   border-left: var(--board-margins);
   border-top: var(--board-margins);
 }
