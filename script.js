@@ -1,6 +1,4 @@
-const gameBoard = {
-  board: ["", "", "", "", "", "", "", "", ""],
-};
+const gameBoard = ["", "", "", "", "", "", "", "", ""];
 
 const PlayerFactory = (name, mark) => {
   const getName = () => name;
@@ -22,10 +20,12 @@ function insertMark(e) {
   const clickedPosition = e.target.getAttribute("data-position");
 
   if (currentPlayer === playerX) {
-    gameBoard.board[clickedPosition] = playerX.getMark();
+    gameBoard[clickedPosition] = playerX.getMark();
+    searchScore(playerX.getMark());
     currentPlayer = playerO;
   } else {
-    gameBoard.board[clickedPosition] = playerO.getMark();
+    gameBoard[clickedPosition] = playerO.getMark();
+    searchScore(playerO.getMark());
     currentPlayer = playerX;
   }
 
@@ -36,12 +36,26 @@ function insertMark(e) {
 function updateBoard() {
   for (let position of boardPositions) {
     position.innerText =
-      gameBoard.board[parseInt(position.getAttribute("data-position"))];
+      gameBoard[parseInt(position.getAttribute("data-position"))];
   }
 }
 
 function blockPosition(position) {
   position.removeEventListener("click", insertMark);
+}
+
+function searchScore(mark) {
+  if (
+    (gameBoard[0] === mark && gameBoard[1] === mark && gameBoard[2] === mark) ||
+    (gameBoard[3] === mark && gameBoard[4] === mark && gameBoard[5] === mark) ||
+    (gameBoard[6] === mark && gameBoard[7] === mark && gameBoard[8] === mark) ||
+    (gameBoard[0] === mark && gameBoard[3] === mark && gameBoard[6] === mark) ||
+    (gameBoard[1] === mark && gameBoard[4] === mark && gameBoard[7] === mark) ||
+    (gameBoard[2] === mark && gameBoard[5] === mark && gameBoard[8] === mark) ||
+    (gameBoard[0] === mark && gameBoard[4] === mark && gameBoard[8] === mark) ||
+    (gameBoard[2] === mark && gameBoard[4] === mark && gameBoard[6] === mark)
+  )
+    console.log(mark + "SCORE");
 }
 
 const boardPositions = document.querySelectorAll("main div");
