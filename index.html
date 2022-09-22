@@ -9,8 +9,31 @@
     <title>Jogo da Velha</title>
   </head>
   <body>
-    <div></div>
-    <main>
+    <div class="game-menus">
+      <div class="game-mode-menu">
+        <button>Jogador(a) vs Jogador(a)</button>
+        <button disabled>Jogador(a) vs Computador</button>
+      </div>
+      <div class="enter-player-names">
+        <form>
+          <legend>Digitem seus nomes:</legend>
+          <div>
+            <label for="player-x-name">Jogador(a) X:</label>
+            <input type="text" name="player-x-name" id="player-x-name" />
+          </div>
+          <div>
+            <label for="player-o-name">Jogador(a) O:</label>
+            <input type="text" name="player-o-name" id="player-o-name" />
+          </div>
+          <div>
+            <button type="button">Voltar</button>
+            <button type="submit">Começar!</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="overlay"></div>
+    <main class="game-board">
       <div data-position="0"></div>
       <div data-position="1"></div>
       <div data-position="2"></div>
@@ -21,7 +44,6 @@
       <div data-position="7"></div>
       <div data-position="8"></div>
     </main>
-    <div></div>
     <script src="./script.js"></script>
   </body>
 </html>
