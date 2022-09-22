@@ -1,6 +1,8 @@
 const gameBoard = (() => {
   const board = ["", "", "", "", "", "", "", "", ""];
 
+  let currentPlayer = "X";
+
   const updateBoard = () => {
     for (let position of boardPositions) {
       position.innerText =
@@ -9,10 +11,11 @@ const gameBoard = (() => {
   };
 
   const insertMark = (e) => {
-    board[e.target.getAttribute("data-position")] = "X";
+    board[e.target.getAttribute("data-position")] = currentPlayer;
     updateBoard();
     e.target.removeEventListener("click", gameBoard.insertMark); // Block position
-    searchScore("X");
+    searchScore(currentPlayer);
+    currentPlayer === "X" ? (currentPlayer = "O") : (currentPlayer = "X");
   };
 
   const searchScore = (mark) => {
