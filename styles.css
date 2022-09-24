@@ -37,6 +37,14 @@ body {
   text-align: center;
   font-size: 10rem;
   font-weight: bold;
+  margin: 16px 0;
+}
+
+.player-turn-indicator {
+  color: var(--light-color);
+  text-align: center;
+  font-size: 1.5rem;
+  height: 1.5rem;
 }
 
 .game-board {
