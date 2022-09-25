@@ -64,6 +64,10 @@ body {
   color: var(--light-color);
 }
 
+.game-board div:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
 [data-position="0"] {
   border-right: var(--board-margins);
   border-bottom: var(--board-margins);

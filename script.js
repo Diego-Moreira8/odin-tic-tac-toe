@@ -2,6 +2,19 @@ const gameBoard = (() => {
   const board = ["", "", "", "", "", "", "", "", ""];
 
   let currentPlayer = "X";
+  const playerTurnIndicator = document.querySelectorAll(
+    ".player-turn-indicator"
+  );
+
+  const displayCurrentPlayer = () => {
+    if (currentPlayer === "X") {
+      playerTurnIndicator[0].innerText = "Sua vez";
+      playerTurnIndicator[1].innerText = "";
+    } else {
+      playerTurnIndicator[0].innerText = "";
+      playerTurnIndicator[1].innerText = "Sua vez";
+    }
+  };
 
   const highlightMarks = (position1, position2, position3) => {
     const styleValue = "rgba(255, 255, 255, 0.1)";
@@ -57,6 +70,8 @@ const gameBoard = (() => {
     e.target.removeEventListener("click", gameBoard.insertMark); // Block position
     searchScore(currentPlayer);
     currentPlayer === "X" ? (currentPlayer = "O") : (currentPlayer = "X");
+    displayCurrentPlayer(currentPlayer);
+    displayCurrentPlayer();
   };
 
   return { insertMark };
