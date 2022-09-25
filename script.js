@@ -1,3 +1,16 @@
+const players = (() => [
+  {
+    name: "Jogador(a) X",
+    currentPlayer: true,
+    score: 0,
+  },
+  {
+    name: "Jogador(a) O",
+    currentPlayer: false,
+    score: 0,
+  },
+])();
+
 const gameBoard = (() => {
   const board = ["", "", "", "", "", "", "", "", ""];
 
