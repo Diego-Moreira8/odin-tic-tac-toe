@@ -4,9 +4,10 @@ const gameBoard = (() => {
   let currentPlayer = "X";
 
   const highlightMarks = (position1, position2, position3) => {
-    boardPositions[position1].style.color = "white";
-    boardPositions[position2].style.color = "white";
-    boardPositions[position3].style.color = "white";
+    const styleValue = "rgba(255, 255, 255, 0.1)";
+    boardPositions[position1].style["background-color"] = styleValue;
+    boardPositions[position2].style["background-color"] = styleValue;
+    boardPositions[position3].style["background-color"] = styleValue;
   };
 
   const blockBoard = () => {
@@ -22,7 +23,7 @@ const gameBoard = (() => {
     }
   };
 
-  const searchScore = (mark, e) => {
+  const searchScore = (mark) => {
     if (board[0] === mark && board[1] === mark && board[2] === mark) {
       blockBoard();
       highlightMarks(0, 1, 2);
@@ -54,7 +55,7 @@ const gameBoard = (() => {
     board[e.target.getAttribute("data-position")] = currentPlayer;
     updateBoard();
     e.target.removeEventListener("click", gameBoard.insertMark); // Block position
-    searchScore(currentPlayer, e);
+    searchScore(currentPlayer);
     currentPlayer === "X" ? (currentPlayer = "O") : (currentPlayer = "X");
   };
 
