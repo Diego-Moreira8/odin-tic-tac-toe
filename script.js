@@ -37,7 +37,9 @@ const gameFlow = (() => {
 })();
 
 const gameBoard = (() => {
-  const board = ["", "", "", "", "", "", "", "", ""];
+  let board = ["", "", "", "", "", "", "", "", ""];
+
+  const continueButton = document.getElementById("continue-game");
 
   const playerTurnIndicator = document.querySelectorAll(
     ".player-turn-indicator"
@@ -71,6 +73,18 @@ const gameBoard = (() => {
       position.innerText =
         board[parseInt(position.getAttribute("data-position"))];
     }
+  };
+
+  const restartBoard = () => {
+    board = ["", "", "", "", "", "", "", "", ""];
+    updateBoard();
+    let boardPositions = document.querySelectorAll(".game-board div");
+    boardPositions.forEach((position) => {
+      position.addEventListener("click", gameBoard.insertMark);
+    });
+    boardPositions.forEach((position) => {
+      position.style["background-color"] = "transparent";
+    });
   };
 
   const searchScore = (mark) => {
@@ -111,6 +125,7 @@ const gameBoard = (() => {
       blockBoard();
       gameFlow.getCurrentPlayer().winRound();
       gameFlow.updateScoreDisplay();
+      continueButton.addEventListener("click", restartBoard);
     }
     gameFlow.switchCurrentPlayer();
     displayCurrentPlayer();
@@ -119,7 +134,7 @@ const gameBoard = (() => {
   return { insertMark };
 })();
 
-const boardPositions = document.querySelectorAll("main div");
+const boardPositions = document.querySelectorAll(".game-board div");
 boardPositions.forEach((position) => {
   position.addEventListener("click", gameBoard.insertMark);
 });

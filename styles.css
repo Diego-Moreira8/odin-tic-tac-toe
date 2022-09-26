@@ -47,8 +47,30 @@ body {
   height: 1.5rem;
 }
 
+.center-panel {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+button {
+  cursor: pointer;
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  border: 2px solid var(--light-color);
+  border-radius: 8px;
+  padding: 8px 32px;
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 .game-board {
-  margin: calc(25vh / 2) 0;
+  margin: 64px 0;
   --board-size: calc(75vh / 3);
   display: grid;
   grid-template-columns: repeat(3, var(--board-size));
@@ -62,10 +84,6 @@ body {
   font-size: 20vh;
   font-weight: bold;
   color: var(--light-color);
-}
-
-.game-board div:hover {
-  background-color: rgba(255, 255, 255, 0.05);
 }
 
 [data-position="0"] {
