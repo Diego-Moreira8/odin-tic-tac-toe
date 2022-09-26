@@ -1,15 +1,27 @@
-const players = (() => [
-  {
-    name: "Jogador(a) X",
-    currentPlayer: true,
-    score: 0,
-  },
-  {
-    name: "Jogador(a) O",
-    currentPlayer: false,
-    score: 0,
-  },
-])();
+const Players = (name, mark) => {
+  const getName = () => name;
+  const getMark = () => mark;
+
+  let score = 0;
+  const getScore = () => score;
+  const winRound = () => score++;
+
+  let isCurrentPlayer = true;
+  const getIsCurrentPlayer = () => isCurrentPlayer;
+  const switchCurrentPlayer = () =>
+    isCurrentPlayer === true
+      ? (isCurrentPlayer = false)
+      : (isCurrentPlayer = true);
+
+  return {
+    getName,
+    getMark,
+    getScore,
+    winRound,
+    getIsCurrentPlayer,
+    switchCurrentPlayer,
+  };
+};
 
 const gameBoard = (() => {
   const board = ["", "", "", "", "", "", "", "", ""];
