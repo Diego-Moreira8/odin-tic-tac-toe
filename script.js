@@ -19,25 +19,25 @@ const gameFlow = (() => {
   const player2 = Player("Jogador(a)", "O");
 
   let currentPlayer = player1;
-  function switchCurrentPlayer() {
+  const switchCurrentPlayer = () => {
     currentPlayer === player1
       ? (currentPlayer = player2)
       : (currentPlayer = player1);
-  }
+  };
+  const getCurrentPlayer = () => currentPlayer;
 
-  return { currentPlayer, switchCurrentPlayer };
+  return { getCurrentPlayer, switchCurrentPlayer };
 })();
 
 const gameBoard = (() => {
   const board = ["", "", "", "", "", "", "", "", ""];
 
-  let currentPlayer = "X";
   const playerTurnIndicator = document.querySelectorAll(
     ".player-turn-indicator"
   );
 
   const displayCurrentPlayer = () => {
-    if (currentPlayer === "X") {
+    if (gameFlow.getCurrentPlayer().getMark() === "X") {
       playerTurnIndicator[0].innerText = "Sua vez";
       playerTurnIndicator[1].innerText = "";
     } else {
@@ -95,19 +95,18 @@ const gameBoard = (() => {
   };
 
   const insertMark = (e) => {
-    board[e.target.getAttribute("data-position")] = currentPlayer;
+    board[e.target.getAttribute("data-position")] = gameFlow
+      .getCurrentPlayer()
+      .getMark();
     updateBoard();
     e.target.removeEventListener("click", gameBoard.insertMark); // Block position
-    searchScore(currentPlayer);
-    currentPlayer === "X" ? (currentPlayer = "O") : (currentPlayer = "X");
-    displayCurrentPlayer(currentPlayer);
+    searchScore(gameFlow.getCurrentPlayer().getMark());
+    gameFlow.switchCurrentPlayer();
     displayCurrentPlayer();
   };
 
   return { insertMark };
 })();
-
-console.log(gameFlow.currentPlayer.getMark()); // gameFlow example
 
 const boardPositions = document.querySelectorAll("main div");
 boardPositions.forEach((position) => {
