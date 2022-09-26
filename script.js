@@ -1,4 +1,4 @@
-const Players = (name, mark) => {
+const Player = (name, mark) => {
   const getName = () => name;
   const getMark = () => mark;
 
@@ -6,22 +6,27 @@ const Players = (name, mark) => {
   const getScore = () => score;
   const winRound = () => score++;
 
-  let isCurrentPlayer = true;
-  const getIsCurrentPlayer = () => isCurrentPlayer;
-  const switchCurrentPlayer = () =>
-    isCurrentPlayer === true
-      ? (isCurrentPlayer = false)
-      : (isCurrentPlayer = true);
-
   return {
     getName,
     getMark,
     getScore,
     winRound,
-    getIsCurrentPlayer,
-    switchCurrentPlayer,
   };
 };
+
+const gameFlow = (() => {
+  const player1 = Player("Jogador(a)", "X");
+  const player2 = Player("Jogador(a)", "O");
+
+  let currentPlayer = player1;
+  function switchCurrentPlayer() {
+    currentPlayer === player1
+      ? (currentPlayer = player2)
+      : (currentPlayer = player1);
+  }
+
+  return { currentPlayer, switchCurrentPlayer };
+})();
 
 const gameBoard = (() => {
   const board = ["", "", "", "", "", "", "", "", ""];
@@ -101,6 +106,8 @@ const gameBoard = (() => {
 
   return { insertMark };
 })();
+
+console.log(gameFlow.currentPlayer.getMark()); // gameFlow example
 
 const boardPositions = document.querySelectorAll("main div");
 boardPositions.forEach((position) => {
