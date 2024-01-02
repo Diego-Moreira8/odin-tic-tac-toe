@@ -19,11 +19,13 @@ class gameBoard {
   }
 
   renderButtons() {
+    const board = document.querySelector("#board");
+
     for (let i = 0; i < 9; i++) {
       const btn = document.createElement("button");
       btn.id = i;
       btn.addEventListener("click", () => this.handleClick(i));
-      document.querySelector("body").appendChild(btn);
+      board.appendChild(btn);
     }
   }
 
@@ -74,8 +76,15 @@ class gameBoard {
         this.board[a] === this.board[b] &&
         this.board[a] === this.board[c]
       ) {
+        console.log(this.board[a] + " wins");
         return true;
       }
+    }
+
+    const hasNullSquares = this.board.find((square) => square === null);
+    if (hasNullSquares === undefined) {
+      console.log("Draw");
+      return true;
     }
 
     return false;
