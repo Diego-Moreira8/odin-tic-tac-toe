@@ -27,16 +27,15 @@ class gameBoard {
       btn.addEventListener("click", () => this.handleClick(i));
       board.appendChild(btn);
     }
+
+    this.renderBoard();
   }
 
   handleClick(index) {
     if (this.isGameOver) return;
     this.updateBoard(index);
+    this.evaluateBoard();
     this.renderBoard();
-    this.isGameOver = this.evaluateBoard();
-
-    //this.logBoard();
-    //console.log(this.evaluateBoard());
   }
 
   updateBoard(index) {
@@ -54,10 +53,16 @@ class gameBoard {
 
   renderBoard() {
     const btns = document.querySelectorAll("button");
+    const scoreDivs = document.querySelectorAll(".player-score");
+
     btns.forEach((b) => (b.textContent = this.board[b.id]));
+
+    scoreDivs[0].textContent = `${this.player1.mark}: ${this.player1.score}`;
+    scoreDivs[1].textContent = `${this.player2.mark}: ${this.player2.score}`;
   }
 
   evaluateBoard() {
+    const statusDiv = document.querySelector("#board-status");
     const winningCombos = [
       [0, 1, 2],
       [3, 4, 5],
@@ -76,18 +81,20 @@ class gameBoard {
         this.board[a] === this.board[b] &&
         this.board[a] === this.board[c]
       ) {
-        console.log(this.board[a] + " wins");
-        return true;
+        if (this.board[a] === this.player1.mark) this.player1.incrementScore();
+        else this.player2.incrementScore();
+
+        statusDiv.textContent = `${this.board[a]} venceu!`;
+        this.isGameOver = true;
+        return;
       }
     }
 
     const hasNullSquares = this.board.find((square) => square === null);
     if (hasNullSquares === undefined) {
-      console.log("Draw");
-      return true;
+      statusDiv.textContent = "Empate";
+      this.isGameOver = true;
     }
-
-    return false;
   }
 
   logBoard() {
