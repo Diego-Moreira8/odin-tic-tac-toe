@@ -20,6 +20,7 @@ class gameBoard {
 
   renderButtons() {
     const board = document.querySelector("#board");
+    const nextRoundBtn = document.querySelector(".next-round");
 
     for (let i = 0; i < 9; i++) {
       const btn = document.createElement("button");
@@ -27,6 +28,8 @@ class gameBoard {
       btn.addEventListener("click", () => this.handleClick(i));
       board.appendChild(btn);
     }
+
+    nextRoundBtn.addEventListener("click", () => this.resetBoard());
 
     this.renderBoard();
   }
@@ -52,13 +55,22 @@ class gameBoard {
   }
 
   renderBoard() {
-    const btns = document.querySelectorAll("button");
+    const btns = document.querySelectorAll("#board button");
     const scoreDivs = document.querySelectorAll(".player-score");
+    const nextRoundBtn = document.querySelector(".next-round");
 
     btns.forEach((b) => (b.textContent = this.board[b.id]));
 
     scoreDivs[0].textContent = `${this.player1.mark}: ${this.player1.score}`;
     scoreDivs[1].textContent = `${this.player2.mark}: ${this.player2.score}`;
+
+    nextRoundBtn.disabled = !this.isGameOver;
+  }
+
+  resetBoard() {
+    this.board = new Array(9).fill(null);
+    this.renderBoard();
+    this.isGameOver = false;
   }
 
   evaluateBoard() {
