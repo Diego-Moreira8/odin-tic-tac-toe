@@ -57,6 +57,7 @@ class gameBoard {
   renderBoard() {
     const btns = document.querySelectorAll("#board button");
     const scoreDivs = document.querySelectorAll(".player-score");
+    const statusDiv = document.querySelector("#board-status");
     const nextRoundBtn = document.querySelector(".next-round");
 
     btns.forEach((b) => (b.textContent = this.board[b.id]));
@@ -64,13 +65,18 @@ class gameBoard {
     scoreDivs[0].textContent = `${this.player1.mark}: ${this.player1.score}`;
     scoreDivs[1].textContent = `${this.player2.mark}: ${this.player2.score}`;
 
+    if (!this.isGameOver)
+      statusDiv.textContent = `Vez de ${
+        this.isPlayer1Turn ? this.player1.mark : this.player2.mark
+      }`;
+
     nextRoundBtn.disabled = !this.isGameOver;
   }
 
   resetBoard() {
     this.board = new Array(9).fill(null);
-    this.renderBoard();
     this.isGameOver = false;
+    this.renderBoard();
   }
 
   evaluateBoard() {
