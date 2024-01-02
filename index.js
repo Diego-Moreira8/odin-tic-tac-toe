@@ -28,9 +28,13 @@ class gameBoard {
   }
 
   handleClick(index) {
+    if (this.isGameOver) return;
     this.updateBoard(index);
+    this.renderBoard();
     this.isGameOver = this.evaluateBoard();
-    console.log(this.isGameOver);
+
+    //this.logBoard();
+    //console.log(this.evaluateBoard());
   }
 
   updateBoard(index) {
@@ -44,6 +48,11 @@ class gameBoard {
       : this.player2.mark;
 
     this.isPlayer1Turn = !this.isPlayer1Turn;
+  }
+
+  renderBoard() {
+    const btns = document.querySelectorAll("button");
+    btns.forEach((b) => (b.textContent = this.board[b.id]));
   }
 
   evaluateBoard() {
@@ -67,9 +76,20 @@ class gameBoard {
       ) {
         return true;
       }
-
-      return false;
     }
+
+    return false;
+  }
+
+  logBoard() {
+    let str = "";
+
+    for (let i = 0; i < this.board.length; i++) {
+      str += this.board[i] + " ";
+      if (i !== 0 && (i + 1) % 3 === 0) str += "\n";
+    }
+
+    console.log(str);
   }
 }
 
