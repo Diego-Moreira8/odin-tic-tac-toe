@@ -32,13 +32,27 @@ class gameBoard {
     for (let i = 0; i < 9; i++) {
       const btn = document.createElement("button");
       btn.id = i;
-      btn.addEventListener("click", this.handleClick);
+      btn.addEventListener("click", () => this.handleClick(i));
       document.querySelector("body").appendChild(btn);
     }
   }
 
-  handleClick(e) {
-    console.log(e.target.id);
+  handleClick(index) {
+    this.updateBoard(index);
+    console.log(this.board);
+  }
+
+  updateBoard(index) {
+    if (this.board[index] !== null) {
+      console.error("Already marked!");
+      return;
+    }
+
+    this.board[index] = this.isPlayer1Turn
+      ? this.player1.mark
+      : this.player2.mark;
+
+    this.isPlayer1Turn = !this.isPlayer1Turn;
   }
 }
 
