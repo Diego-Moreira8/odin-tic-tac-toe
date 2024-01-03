@@ -10,42 +10,40 @@ class Player {
 class gameBoard {
   constructor() {
     this.board = new Array(9).fill(null);
+    this.isGameOver = false;
+    this.isPlayer1Turn = true;
+    this.roundWinner = null;
     this.player1 = new Player("X");
     this.player2 = new Player("O");
-    this.isPlayer1Turn = true;
-    this.isGameOver = false;
 
-    this.renderButtons();
+    this.startUi();
   }
 
-  renderButtons() {
+  startUi() {
     const board = document.querySelector("#board");
     const nextRoundBtn = document.querySelector(".next-round");
 
     for (let i = 0; i < 9; i++) {
-      const btn = document.createElement("button");
-      btn.id = i;
-      btn.addEventListener("click", () => this.handleClick(i));
-      board.appendChild(btn);
+      const square = document.createElement("button");
+      square.id = i;
+      square.addEventListener("click", () => this.handleSquareClick(i));
+      board.appendChild(square);
     }
 
     nextRoundBtn.addEventListener("click", () => this.resetBoard());
 
-    this.renderBoard();
+    this.updateUi();
   }
 
-  handleClick(index) {
+  handleSquareClick(index) {
     if (this.isGameOver) return;
-    this.updateBoard(index);
+    this.insertMark(index);
     this.evaluateBoard();
-    this.renderBoard();
+    this.updateUi();
   }
 
-  updateBoard(index) {
-    if (this.board[index] !== null) {
-      console.error("Already marked!");
-      return;
-    }
+  insertMark(index) {
+    if (this.board[index] !== null) return;
 
     this.board[index] = this.isPlayer1Turn
       ? this.player1.mark
@@ -54,33 +52,7 @@ class gameBoard {
     this.isPlayer1Turn = !this.isPlayer1Turn;
   }
 
-  renderBoard() {
-    const btns = document.querySelectorAll("#board button");
-    const scoreDivs = document.querySelectorAll(".player-score");
-    const statusDiv = document.querySelector("#board-status");
-    const nextRoundBtn = document.querySelector(".next-round");
-
-    btns.forEach((b) => (b.textContent = this.board[b.id]));
-
-    scoreDivs[0].textContent = `${this.player1.mark}: ${this.player1.score}`;
-    scoreDivs[1].textContent = `${this.player2.mark}: ${this.player2.score}`;
-
-    if (!this.isGameOver)
-      statusDiv.textContent = `Vez de ${
-        this.isPlayer1Turn ? this.player1.mark : this.player2.mark
-      }`;
-
-    nextRoundBtn.disabled = !this.isGameOver;
-  }
-
-  resetBoard() {
-    this.board = new Array(9).fill(null);
-    this.isGameOver = false;
-    this.renderBoard();
-  }
-
   evaluateBoard() {
-    const statusDiv = document.querySelector("#board-status");
     const winningCombos = [
       [0, 1, 2],
       [3, 4, 5],
@@ -92,6 +64,11 @@ class gameBoard {
       [2, 4, 6],
     ];
 
+    // Verify if is a draw
+    const hasNullSquares = this.board.find((square) => square === null);
+    if (hasNullSquares === undefined) this.isGameOver = true;
+
+    // Search for a winner
     for (let combo of winningCombos) {
       const [a, b, c] = combo;
       if (
@@ -99,20 +76,49 @@ class gameBoard {
         this.board[a] === this.board[b] &&
         this.board[a] === this.board[c]
       ) {
-        if (this.board[a] === this.player1.mark) this.player1.incrementScore();
-        else this.player2.incrementScore();
+        if (this.board[a] === this.player1.mark) {
+          this.player1.incrementScore();
+          this.roundWinner = this.player1;
+        } else {
+          this.player2.incrementScore();
+          this.roundWinner = this.player2;
+        }
 
-        statusDiv.textContent = `${this.board[a]} venceu!`;
         this.isGameOver = true;
-        return;
       }
     }
+  }
 
-    const hasNullSquares = this.board.find((square) => square === null);
-    if (hasNullSquares === undefined) {
-      statusDiv.textContent = "Empate";
-      this.isGameOver = true;
+  updateUi() {
+    const scoreDivs = document.querySelectorAll(".player-score");
+    const statusDiv = document.querySelector("#board-status");
+    const squaresBtns = document.querySelectorAll("#board button");
+    const nextRoundBtn = document.querySelector(".next-round");
+
+    scoreDivs[0].textContent = `${this.player1.mark}: ${this.player1.score}`;
+    scoreDivs[1].textContent = `${this.player2.mark}: ${this.player2.score}`;
+
+    if (this.isGameOver) {
+      statusDiv.textContent =
+        this.roundWinner === null
+          ? "Empate"
+          : `${this.roundWinner.mark} venceu!`;
+    } else {
+      statusDiv.textContent = `Vez de ${
+        this.isPlayer1Turn ? this.player1.mark : this.player2.mark
+      }`;
     }
+
+    squaresBtns.forEach((btn) => (btn.textContent = this.board[btn.id]));
+
+    nextRoundBtn.disabled = !this.isGameOver;
+  }
+
+  resetBoard() {
+    this.board = new Array(9).fill(null);
+    this.isGameOver = false;
+    this.roundWinner = null;
+    this.updateUi();
   }
 
   logBoard() {
