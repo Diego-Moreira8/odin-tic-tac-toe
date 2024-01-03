@@ -5,6 +5,7 @@ class Player {
   }
 
   incrementScore = () => this.score++;
+  resetScore = () => (this.score = 0);
 }
 
 class gameBoard {
@@ -22,6 +23,7 @@ class gameBoard {
   startUi() {
     const board = document.querySelector("#board");
     const nextRoundBtn = document.querySelector(".next-round");
+    const restartScoreBtn = document.querySelector(".restart-score");
 
     for (let i = 0; i < 9; i++) {
       const square = document.createElement("button");
@@ -31,6 +33,7 @@ class gameBoard {
     }
 
     nextRoundBtn.addEventListener("click", () => this.resetBoard());
+    restartScoreBtn.addEventListener("click", () => this.resetScore());
 
     this.updateUi();
   }
@@ -121,15 +124,14 @@ class gameBoard {
     this.updateUi();
   }
 
-  logBoard() {
-    let str = "";
-
-    for (let i = 0; i < this.board.length; i++) {
-      str += this.board[i] + " ";
-      if (i !== 0 && (i + 1) % 3 === 0) str += "\n";
-    }
-
-    console.log(str);
+  resetScore() {
+    this.board = new Array(9).fill(null);
+    this.isGameOver = false;
+    this.isPlayer1Turn = true;
+    this.roundWinner = null;
+    this.player1.resetScore();
+    this.player2.resetScore();
+    this.updateUi();
   }
 }
 
