@@ -93,19 +93,29 @@ class gameBoard {
   }
 
   updateUi() {
+    const scoreGroupDivs = document.querySelectorAll(".player-score-group");
     const scoreDivs = document.querySelectorAll(".player-score");
     const statusDiv = document.querySelector("#board-status");
     const squaresBtns = document.querySelectorAll("#board button");
     const nextRoundBtn = document.querySelector(".next-round");
 
-    scoreDivs[0].textContent = `${this.player1.mark}: ${this.player1.score}`;
-    scoreDivs[1].textContent = `${this.player2.mark}: ${this.player2.score}`;
+    scoreGroupDivs[0].classList[this.isPlayer1Turn ? "add" : "remove"](
+      "active"
+    );
+    scoreGroupDivs[1].classList[!this.isPlayer1Turn ? "add" : "remove"](
+      "active"
+    );
+
+    scoreDivs[0].textContent = `${this.player1.score}`;
+    scoreDivs[1].textContent = `${this.player2.score}`;
 
     if (this.isGameOver) {
       statusDiv.textContent =
         this.roundWinner === null
           ? "Empate"
           : `${this.roundWinner.mark} venceu!`;
+
+      scoreGroupDivs.forEach((group) => group.classList.remove("active"));
     } else {
       statusDiv.textContent = `Vez de ${
         this.isPlayer1Turn ? this.player1.mark : this.player2.mark

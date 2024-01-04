@@ -1,6 +1,6 @@
 body {
-  background-color: black;
-  color: white;
+  background-color: #000;
+  color: #fff;
   font-family: Nunito, sans-serif;
   height: 100vh;
   height: 100svh;
@@ -18,14 +18,29 @@ body button {
 body main {
   display: flex;
   flex-flow: column;
-  gap: 1rem;
+  align-items: center;
 }
 body main h1 {
   text-align: center;
+  margin: 1rem;
 }
 body main .score {
   display: flex;
-  justify-content: space-between;
+  flex-flow: column;
+  gap: 4px;
+  margin: 1rem;
+  border: 2px solid #fff;
+  padding: 4px;
+  border-radius: 8px;
+}
+body main .score .player-score-group {
+  display: flex;
+  gap: 2rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+body main .score .player-score-group.active {
+  background-color: #1d7874;
 }
 body main #board-status {
   text-align: center;
@@ -34,13 +49,14 @@ body main #board {
   display: grid;
   grid-template-columns: repeat(3, 5rem);
   gap: 4px;
+  background-color: #1d7874;
   margin: 0 auto;
 }
 body main #board button {
   height: 5rem;
-  background-color: darkgrey;
+  background-color: #000;
   border: none;
-  border-radius: 4px;
+  color: #fff;
   font-size: 3rem;
 }
 body footer {
