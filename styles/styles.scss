@@ -1,4 +1,5 @@
 $main: #1d7874;
+$danger: darkred;
 $background: #000;
 $text: #fff;
 $border-radius: 8px;
@@ -45,7 +46,7 @@ body {
       .player-score-group {
         display: flex;
         gap: 2rem;
-        padding: 0.5rem;
+        padding: 0.25rem 1rem;
         border-radius: calc($border-radius / 2);
 
         &.active {
@@ -63,16 +64,55 @@ body {
       $square-size: 5rem;
       grid-template-columns: repeat(3, $square-size);
       gap: 4px;
-      background-color: $main;
-      margin: 0 auto;
+      background-color: $background;
+      margin: 2rem auto;
 
       button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: $square-size;
-        background-color: $background;
+        background-color: $main;
         border: none;
         color: $text;
-        //border-radius: $border-radius;
-        font-size: 3rem;
+        font-size: 4rem;
+
+        &:nth-of-type(1) {
+          border-radius: $border-radius 0 0 0;
+        }
+        &:nth-of-type(3) {
+          border-radius: 0 $border-radius 0 0;
+        }
+        &:nth-of-type(7) {
+          border-radius: 0 0 0 $border-radius;
+        }
+        &:nth-of-type(9) {
+          border-radius: 0 0 $border-radius 0;
+        }
+      }
+    }
+
+    .controls {
+      display: flex;
+      flex-flow: column;
+      gap: 0.5rem;
+      align-items: center;
+
+      button {
+        background-color: $main;
+        color: $text;
+        border: none;
+        border-radius: $border-radius;
+        padding: 0.25rem 1rem;
+        transition: opacity 0.5s;
+
+        &:disabled {
+          opacity: 0.3;
+        }
+
+        &.restart-score {
+          background-color: $danger;
+        }
       }
     }
   }
@@ -80,5 +120,10 @@ body {
   footer {
     text-align: center;
     padding: 0.5rem;
+
+    a {
+      font-weight: bold;
+      color: $main;
+    }
   }
 }

@@ -36,7 +36,7 @@ body main .score {
 body main .score .player-score-group {
   display: flex;
   gap: 2rem;
-  padding: 0.5rem;
+  padding: 0.25rem 1rem;
   border-radius: 4px;
 }
 body main .score .player-score-group.active {
@@ -49,19 +49,58 @@ body main #board {
   display: grid;
   grid-template-columns: repeat(3, 5rem);
   gap: 4px;
-  background-color: #1d7874;
-  margin: 0 auto;
+  background-color: #000;
+  margin: 2rem auto;
 }
 body main #board button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 5rem;
-  background-color: #000;
+  background-color: #1d7874;
   border: none;
   color: #fff;
-  font-size: 3rem;
+  font-size: 4rem;
+}
+body main #board button:nth-of-type(1) {
+  border-radius: 8px 0 0 0;
+}
+body main #board button:nth-of-type(3) {
+  border-radius: 0 8px 0 0;
+}
+body main #board button:nth-of-type(7) {
+  border-radius: 0 0 0 8px;
+}
+body main #board button:nth-of-type(9) {
+  border-radius: 0 0 8px 0;
+}
+body main .controls {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+body main .controls button {
+  background-color: #1d7874;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.25rem 1rem;
+  transition: opacity 0.5s;
+}
+body main .controls button:disabled {
+  opacity: 0.3;
+}
+body main .controls button.restart-score {
+  background-color: darkred;
 }
 body footer {
   text-align: center;
   padding: 0.5rem;
+}
+body footer a {
+  font-weight: bold;
+  color: #1d7874;
 }
 
 /*# sourceMappingURL=styles.css.map */
