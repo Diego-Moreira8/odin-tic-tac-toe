@@ -38,11 +38,13 @@ class gameBoard {
           ? this.player1.mark
           : this.player2.mark;
       });
-      square.addEventListener("mouseleave", () => {
-        square.classList.remove("hovering");
-        if (this.isGameOver || this.board[i] !== null) return;
-        square.textContent = "";
-      });
+      ["mouseleave", "click"].forEach((event) =>
+        square.addEventListener(event, () => {
+          square.classList.remove("hovering");
+          if (this.isGameOver || this.board[i] !== null) return;
+          square.textContent = "";
+        })
+      );
 
       board.appendChild(square);
     }
