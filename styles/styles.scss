@@ -2,6 +2,7 @@ $main: #1d7874;
 $danger: darkred;
 $background: #000;
 $text: #fff;
+$text-low-opacity: #ffffff73;
 $border-radius: 8px;
 
 body {
@@ -76,6 +77,11 @@ body {
         border: none;
         color: $text;
         font-size: 4rem;
+        color: white;
+
+        &.hovering {
+          color: $text-low-opacity;
+        }
 
         &:nth-of-type(1) {
           border-radius: $border-radius 0 0 0;

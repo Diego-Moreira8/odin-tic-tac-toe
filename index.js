@@ -29,6 +29,21 @@ class gameBoard {
       const square = document.createElement("button");
       square.id = i;
       square.addEventListener("click", () => this.handleSquareClick(i));
+
+      // Hover effect
+      square.addEventListener("mouseenter", () => {
+        if (this.isGameOver || this.board[i] !== null) return;
+        square.classList.add("hovering");
+        square.textContent = this.isPlayer1Turn
+          ? this.player1.mark
+          : this.player2.mark;
+      });
+      square.addEventListener("mouseleave", () => {
+        square.classList.remove("hovering");
+        if (this.isGameOver || this.board[i] !== null) return;
+        square.textContent = "";
+      });
+
       board.appendChild(square);
     }
 
