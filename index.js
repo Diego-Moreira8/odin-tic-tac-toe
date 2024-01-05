@@ -102,6 +102,13 @@ class gameBoard {
           this.roundWinner = this.player2;
         }
 
+        // Highlight combo
+        const squaresBtns = document.querySelectorAll("#board button");
+        squaresBtns.forEach((btn) => {
+          if (btn.id != a && btn.id != b && btn.id != c)
+            btn.classList.add("minimize");
+        });
+
         this.isGameOver = true;
       }
     }
@@ -135,6 +142,8 @@ class gameBoard {
       statusDiv.textContent = `Vez de ${
         this.isPlayer1Turn ? this.player1.mark : this.player2.mark
       }`;
+
+      squaresBtns.forEach((btn) => btn.classList.remove("minimize"));
     }
 
     squaresBtns.forEach((btn) => (btn.textContent = this.board[btn.id]));

@@ -62,9 +62,13 @@ body main #board button {
   color: #fff;
   font-size: 4rem;
   color: white;
+  transition: opacity 1s;
 }
 body main #board button.hovering {
   color: rgba(255, 255, 255, 0.4509803922);
+}
+body main #board button.minimize {
+  opacity: 0.5;
 }
 body main #board button:nth-of-type(1) {
   border-radius: 8px 0 0 0;

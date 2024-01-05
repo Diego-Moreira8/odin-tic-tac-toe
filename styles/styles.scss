@@ -78,9 +78,14 @@ body {
         color: $text;
         font-size: 4rem;
         color: white;
+        transition: opacity 1s;
 
         &.hovering {
           color: $text-low-opacity;
+        }
+
+        &.minimize {
+          opacity: 0.5;
         }
 
         &:nth-of-type(1) {
